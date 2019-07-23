@@ -1,0 +1,16 @@
+.authform {
+  width: 50%;
+  text-align: center;
+  margin: auto;
+  margin-top: 5%;
+}
+
+.authform Button {
+  margin: 2%;
+}
+
+.authform Input {
+  width: 50%;
+  justify-content: center;
+  margin: auto;
+}
