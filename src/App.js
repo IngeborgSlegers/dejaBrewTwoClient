@@ -1,4 +1,5 @@
 import React, {useState, useEffect } from 'react';
+import HeroImage from './layout/HeroImage';
 import Tea from './layout/Tea';
 import Nav from './layout/Nav';
 import Auth from './Auth/Auth';
@@ -33,6 +34,7 @@ const App = () => {
     <div className="App">
       <Router>
         <Nav logout={logout} setToken={setToken} sessionToken={sessionToken} />
+        <HeroImage />
         <Switch>
             <Route exact path='/'><Tea/></Route>
             <Route exact path='/auth'><Auth setToken={setToken} sessionToken={sessionToken} /></Route>

@@ -6,6 +6,7 @@ import './Auth.css';
 const Login = (props) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('');
   const [ updateActive, setUpdateActive ] = useState(false);
   
   const updateOn = () => {
@@ -32,6 +33,7 @@ const Login = (props) => {
       console.log('data => ', data)
       console.log(data.token)
       data.error === "Passwords do not match" ? alert('Email or password is incorrect.') : props.setToken(data.token);
+      setUserName(data.user.firstName)
       updateOn(true);
     })
   }
@@ -58,7 +60,7 @@ const Login = (props) => {
             </Col>
           </Row>
       </Container>
-      {updateActive ? <KeepModal updateOff={updateOff} /> : <div></div>}
+      {updateActive ? <KeepModal updateOff={updateOff} userName={userName} /> : <div></div>}
     </div>
   );
 };

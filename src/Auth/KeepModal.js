@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { Link } from 'react-router-dom';
 
@@ -9,9 +9,9 @@ const KeepModal = (props) => {
   return (
     <div>
       <Modal isOpen={true}>
-        <ModalHeader>Modal title</ModalHeader>
+        <ModalHeader>Welcome {props.userName}!</ModalHeader>
         <ModalBody>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        Est americano mug robust grounds crema as, a to go irish milk cinnamon. Cappuccino affogato beans mazagran bar caffeine trifecta. Carajillo, french press milk, brewed café au lait seasonal fair trade, iced lungo decaffeinated americano viennese. And macchiato, brewed, affogato iced, milk, java aromatic sugar lungo extraction decaffeinated. Et flavour decaffeinated, café au lait robusta con panna chicory sweet carajillo as milk cappuccino
         </ModalBody>
         <ModalFooter>
           <Link to='/'><Button color="primary" >KEEP SHOPPING</Button></Link>

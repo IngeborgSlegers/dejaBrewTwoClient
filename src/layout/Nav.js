@@ -9,7 +9,7 @@ const Sidebar = (props) => {
 
     return(
       <div className='main'>
-        <Navbar color='info' light expand="md">
+        <Navbar color='light' light expand="md">
           <NavbarBrand href="/">Deja Brew</NavbarBrand>
           <br />
           <div className='icon'>
