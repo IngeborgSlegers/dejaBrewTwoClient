@@ -7,10 +7,12 @@ import Profile from './Auth/Profile';
 import {BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import MainTea from './layout/Teas/MainTea';
 import TeaType from './layout/Teas/Types/TeaType/TeaType';
+import Tea from './layout/Teas/Tea/Tea';
 
 const App = () => {
 
   const [sessionToken, setSessionToken] = useState(undefined);
+  const [teaId, setTeaId] = useState(0);
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -19,13 +21,21 @@ const App = () => {
     }
   }, []);
 
+  useEffect(() => {
+    // getTeaId();
+  }, [setTeaId]);
+
+  const getTeaId = (newTeaId) => {
+    setTeaId(newTeaId);
+  }
+
   
   const setToken = (newToken) => {
     localStorage.setItem('token', newToken);
     setSessionToken({newToken});
     console.log(sessionToken);
   };
-  
+
   const logout = () => {
     setSessionToken({sessionToken: ''});
     localStorage.clear();
@@ -40,7 +50,8 @@ const App = () => {
         <Switch>
             <Route exact path='/'><MainTea/></Route>
             <Route exact path='/allteas'><AllTeas/></Route>
-            <Route exact path='/teaType'><TeaType/></Route>
+            <Route exact path='/teaType'><TeaType getTeaId={getTeaId}/></Route>
+            <Route exact path='/tea'><Tea teaId={teaId}/></Route>
             <Route exact path='/auth'><Auth setToken={setToken} sessionToken={sessionToken} /></Route>
             <Route exact path='/profile' render={() => (sessionToken === undefined ? (<Redirect to="/auth"/>) : ( <Profile sessionToken={sessionToken}/> ) ) } />
         </Switch>  

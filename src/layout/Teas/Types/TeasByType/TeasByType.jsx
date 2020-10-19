@@ -1,23 +1,26 @@
-import React, {useState} from 'react';
-import TeaPreviewModal from '../../TeaPreviewModal';
-import {Card, CardTitle, Col} from 'reactstrap';
+import React, { useState } from "react";
+import TeaPreviewModal from "../../TeaPreviewModal";
+import { Card, CardBody, Col } from "reactstrap";
+import "./TeasByType.css";
 
 const TeasByType = (props) => {
   const [modal, setModal] = useState(false);
 
   const toggle = () => setModal(!modal);
 
-  console.log(props)
+  console.log(props);
   return (
     <div>
       <Col>
-        <Card onClick={() => toggle()}>
-          <CardTitle>{props.teas.name}</CardTitle>
+        <Card onClick={() => toggle()} className="TeaCard">
+          <CardBody>{props.teas.name}</CardBody>
         </Card>
       </Col>
-      {modal ? <TeaPreviewModal tea={props.teas} modal={modal} toggle={toggle} /> : null}
+      {modal ? (
+        <TeaPreviewModal tea={props.teas} modal={modal} toggle={toggle} getTeaId={props.getTeaId} />
+      ) : null}
     </div>
-  )
-}
+  );
+};
 
-export default TeasByType
+export default TeasByType;

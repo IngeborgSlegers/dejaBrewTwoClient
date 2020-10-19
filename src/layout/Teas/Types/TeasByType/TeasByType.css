@@ -1,0 +1,9 @@
+.TeaCard {
+  cursor: pointer;
+}
+
+.TeaCard:hover {
+  cursor: pointer;
+  background-color:  #808080;
+  color: white;
+}

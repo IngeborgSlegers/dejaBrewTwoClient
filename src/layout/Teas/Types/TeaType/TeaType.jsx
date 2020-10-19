@@ -41,14 +41,13 @@ const AllTeas = (props) => {
   const teaButtons = () => {
     return teaOptions.map((tea, index) => {
       return (
-        <Col>
+        <Col key={index}>
           <Card>
             <CardBody>
               <Button
                 className="TeaButton"
                 value={tea}
                 onClick={getTeaType}
-                key={index}
               >
                 {tea}
               </Button>
@@ -65,7 +64,7 @@ const AllTeas = (props) => {
       <Row className="TeaCards">
         {teaByType.length > 0
           ? teaByType.map((teas, index) => (
-              <TeasByType key={index} teas={teas} />
+              <TeasByType key={index} teas={teas} getTeaId={props.getTeaId} />
             ))
           : null}
       </Row>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Card, Row } from "reactstrap";
-import "./Tea.css";
+import "./AllTeas.css";
 
 
 const AllTeas = (props) => {
@@ -20,7 +20,6 @@ const AllTeas = (props) => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
         setTeaArray(data.teas);
       });
   };
