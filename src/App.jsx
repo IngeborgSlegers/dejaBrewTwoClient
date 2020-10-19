@@ -8,11 +8,19 @@ import {BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-do
 import MainTea from './layout/Teas/MainTea';
 import TeaType from './layout/Teas/Types/TeaType/TeaType';
 import Tea from './layout/Teas/Tea/Tea';
+import SideDrawer from './layout/SideBar';
 
 const App = () => {
 
   const [sessionToken, setSessionToken] = useState(undefined);
   const [teaId, setTeaId] = useState(0);
+  const [sideBar, setSideBar] = useState(false);
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -21,6 +29,15 @@ const App = () => {
     }
   }, []);
 
+  const toggleDrawer = (anchor, open) => (event) => {
+    console.log(anchor, open)
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
   useEffect(() => {
     // getTeaId();
   }, [setTeaId]);
@@ -28,7 +45,6 @@ const App = () => {
   const getTeaId = (newTeaId) => {
     setTeaId(newTeaId);
   }
-
   
   const setToken = (newToken) => {
     localStorage.setItem('token', newToken);
@@ -42,11 +58,19 @@ const App = () => {
     alert('You are now logged out!')
   }
 
+  const toggleSidebar = () => {
+    setSideBar(!sideBar)
+  }
+
   return (
     <div className="App">
       <Router>
         <Nav logout={logout} setToken={setToken} sessionToken={sessionToken} />
         <HeroImage />
+        <h1 onClick={() => {toggleSidebar()}}>Click me to open the cart!</h1>
+        {sideBar ? (
+        <SideDrawer />
+      ) : null}
         <Switch>
             <Route exact path='/'><MainTea/></Route>
             <Route exact path='/allteas'><AllTeas getTeaId={getTeaId}/></Route>
