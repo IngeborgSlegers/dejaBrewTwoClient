@@ -1,0 +1,15 @@
+.TeaButtons {
+  margin: 2em;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.btn.TeaButton {
+  width: 10em;
+  height: 10em;
+  margin: 2em;
+}
+
+.TeaCards {
+  margin-top: 2em;
+}

@@ -1,0 +1,23 @@
+.mainTeaCard {
+  margin: 2em auto;
+  padding: 2em 1em;
+  color: white;
+  text-align: center;
+}
+
+.mainTeaCard.card {
+  background-color: #808080;
+}
+
+.mainTea {
+  margin-top: 2em;
+  justify-content: space-around;
+}
+
+.mainTeaLink:hover {
+  text-decoration: none;
+}
+
+.mainTeaCard:hover {
+  background-color: darkgrey;
+}

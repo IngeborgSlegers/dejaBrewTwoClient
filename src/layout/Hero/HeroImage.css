@@ -1,0 +1,19 @@
+.heroImage {
+  background-image: url('../../assets/vivek-kumar-JKbyACnTvuE-unsplash_Large.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 80vh;
+  width: 100%;
+}
+
+.heroImage h1{
+  font-family: 'Meddon', cursive;
+  color: white;
+  font-size: 8em;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-top: 17%;
+}
