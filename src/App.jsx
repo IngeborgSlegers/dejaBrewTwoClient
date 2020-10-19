@@ -49,9 +49,10 @@ const App = () => {
         <HeroImage />
         <Switch>
             <Route exact path='/'><MainTea/></Route>
-            <Route exact path='/allteas'><AllTeas/></Route>
+            <Route exact path='/allteas'><AllTeas getTeaId={getTeaId}/></Route>
             <Route exact path='/teaType'><TeaType getTeaId={getTeaId}/></Route>
-            <Route exact path='/tea'><Tea teaId={teaId}/></Route>
+            <Route exact path='/tea' render={() => (teaId === 0 ? (<Redirect to="/teaType" />) : (<Tea teaId={teaId} />))} />
+            {/* <Route exact path='/tea'><Tea teaId={teaId}/></Route> */}
             <Route exact path='/auth'><Auth setToken={setToken} sessionToken={sessionToken} /></Route>
             <Route exact path='/profile' render={() => (sessionToken === undefined ? (<Redirect to="/auth"/>) : ( <Profile sessionToken={sessionToken}/> ) ) } />
         </Switch>  

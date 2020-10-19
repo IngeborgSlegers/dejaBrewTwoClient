@@ -23,7 +23,6 @@ const AllTeas = (props) => {
   };
 
   const showTeas = () => {
-    console.log();
     let url = `http://localhost:4000/tea/type/${teaType.toLocaleLowerCase()}`;
     fetch(url, {
       method: "GET",
