@@ -15,12 +15,12 @@ const App = () => {
   const [sessionToken, setSessionToken] = useState(undefined);
   const [teaId, setTeaId] = useState(0);
   const [sideBar, setSideBar] = useState(false);
-  const [state, setState] = React.useState({
-    top: false,
-    left: false,
-    bottom: false,
-    right: false,
-  });
+  // const [state, setState] = React.useState({
+  //   top: false,
+  //   left: false,
+  //   bottom: false,
+  //   right: false,
+  // });
 
   useEffect(() => {
     if (localStorage.getItem('token')) {
@@ -28,15 +28,6 @@ const App = () => {
       setSessionToken(localStorage.getItem('token'));
     }
   }, []);
-
-  const toggleDrawer = (anchor, open) => (event) => {
-    console.log(anchor, open)
-    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-      return;
-    }
-
-    setState({ ...state, [anchor]: open });
-  };
 
   useEffect(() => {
     // getTeaId();
@@ -59,7 +50,7 @@ const App = () => {
   }
 
   const toggleSidebar = () => {
-    setSideBar(!sideBar)
+    setSideBar(!sideBar);
   }
 
   return (
@@ -67,9 +58,9 @@ const App = () => {
       <Router>
         <Nav logout={logout} setToken={setToken} sessionToken={sessionToken} />
         <HeroImage />
-        <h1 onClick={() => {toggleSidebar()}}>Click me to open the cart!</h1>
+        {/* <h1 onClick={() => {toggleSidebar()}}>Click me to open the cart!</h1> */}
         {sideBar ? (
-        <SideDrawer />
+        <SideDrawer sideBar={sideBar} toggleSidebar={toggleSidebar} />
       ) : null}
         <Switch>
             <Route exact path='/'><MainTea/></Route>

@@ -13,7 +13,7 @@ const TeaPreviewModal = (props) => {
             Add to cart
           </Button>
           <Link to="/tea">
-          <Button color="primary" onClick={props.toggle, props.getTeaId(props.tea.id)}>
+          <Button color="primary" onClick={() => {props.toggle(); props.getTeaId(props.tea.id)}}>
             Learn More
           </Button>
           </Link>
