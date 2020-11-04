@@ -42,6 +42,7 @@ const Auth = (props) => {
           setToken={props.setToken}
           toggleForm={changeUserStatus}
           alert={alert}
+          history={props.history}
         />
       );
     }

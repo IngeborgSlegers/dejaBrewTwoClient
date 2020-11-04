@@ -9,6 +9,7 @@ import {
   Input,
   Button,
 } from "reactstrap";
+import { Redirect } from "react-router-dom";
 import "./Auth.css";
 
 const Login = (props) => {
@@ -49,8 +50,13 @@ const Login = (props) => {
         } else {
           props.setToken(data.token);
           setUserName(data.user.firstName);
-          props.setAdminRole();
-          updateOn(true);
+          if (data.user.role === "admin") {
+            props.setAdminRole();
+            props.history.push("/inventory");
+            // return <Redirect to="/inventory" />;
+          } else if (data.user.role === "user") {
+            updateOn(true);
+          }
         }
       });
   };
@@ -96,9 +102,7 @@ const Login = (props) => {
       </Container>
       {updateActive ? (
         <KeepModal updateOff={updateOff} userName={userName} />
-      ) : (
-        <div></div>
-      )}
+      ) : null}
     </div>
   );
 };

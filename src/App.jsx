@@ -4,19 +4,15 @@ import AllTeas from "./layout/Teas/AllTeas";
 import Nav from "./layout/Navbar/Nav";
 import Auth from "./Auth/Auth";
 import Profile from "./Auth/Profile";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import MainTea from "./layout/Teas/MainTea";
 import TeaType from "./layout/Teas/Types/TeaType/TeaType";
 import Tea from "./layout/Teas/Tea/Tea";
 import SideDrawer from "./layout/SideBar";
 import TeaInventory from "./layout/Admin/TeaInventory/TeaInventory";
 
-
+const history = createBrowserHistory();
 const App = () => {
   const [sessionToken, setSessionToken] = useState(undefined);
   const [teaId, setTeaId] = useState(0);
@@ -31,17 +27,19 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // getTeaId();
+    // console.log()
   }, [setTeaId]);
+
+  console.log(history.location);
 
   const getTeaId = (newTeaId) => {
     setTeaId(newTeaId);
   };
 
   const setToken = (newToken) => {
+    console.log(newToken);
     localStorage.setItem("token", newToken);
-    setSessionToken({ newToken });
-    console.log(sessionToken);
+    setSessionToken(newToken);
   };
 
   const logout = () => {
@@ -54,22 +52,22 @@ const App = () => {
     setSideBar(!sideBar);
   };
 
-  const setAdminRole = (role) => {
-    setAdmin(role);
-  }
+  const setAdminRole = () => {
+    setAdmin(true);
+  };
 
   return (
     <div className="App">
-      <Router>
+      <Router history={history}>
         <Nav logout={logout} setToken={setToken} sessionToken={sessionToken} />
         <HeroImage />
-        <h1
+        {/* <h1
           onClick={() => {
             toggleSidebar();
           }}
         >
           Click me to open the cart!
-        </h1>
+        </h1> */}
         {sideBar ? (
           <SideDrawer sideBar={sideBar} toggleSidebar={toggleSidebar} />
         ) : null}
@@ -92,26 +90,27 @@ const App = () => {
           />
           {/* <Route exact path='/tea'><Tea teaId={teaId}/></Route> */}
           <Route exact path="/auth">
-            <Auth setToken={setToken} sessionToken={sessionToken} setAdminRole={setAdminRole}/>
+            <Auth
+              setToken={setToken}
+              sessionToken={sessionToken}
+              setAdminRole={setAdminRole}
+              history={history}
+            />
           </Route>
           <Route
             exact
             path="/profile"
             render={() =>
-              sessionToken === undefined ? (
-                <Redirect to="/auth" />
-              ) : (
+              sessionToken !== undefined && admin !== true ? (
                 <Profile sessionToken={sessionToken} />
+              ) : (
+                <Redirect to="/auth" />
               )
             }
           />
-          <Route
-            exact
-            path="/teaInventory"
-            render={() =>
-              admin === false ? <Redirect to="/allteas" /> : <TeaInventory />
-            }
-          />
+          <Route path="/inventory">
+            {admin ? <TeaInventory /> : <Redirect to="/allteas" />}
+          </Route>
         </Switch>
       </Router>
     </div>
