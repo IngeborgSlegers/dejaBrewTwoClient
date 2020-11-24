@@ -11,6 +11,7 @@ import TeaType from "./layout/Teas/Types/TeaType/TeaType";
 import Tea from "./layout/Teas/Tea/Tea";
 import SideDrawer from "./layout/SideBar";
 import TeaInventory from "./layout/Admin/TeaInventory/TeaInventory";
+import AdminMain from "./layout/Admin/AdminMain";
 
 const history = createBrowserHistory();
 const App = () => {
@@ -18,23 +19,41 @@ const App = () => {
   const [teaId, setTeaId] = useState(0);
   const [sideBar, setSideBar] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const [teaArray, setTeaArray] = useState([]);
+
+  // useEffect(() => {
+  //   if (localStorage.getItem("token")) {
+  //     console.log(sessionToken);
+  //     setSessionToken(localStorage.getItem("token"));
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      console.log(sessionToken);
-      setSessionToken(localStorage.getItem("token"));
-    }
-  }, []);
-
-  useEffect(() => {
-    // console.log()
+    showTeas();
   }, [setTeaId]);
 
-  console.log(history.location);
 
   const getTeaId = (newTeaId) => {
     setTeaId(newTeaId);
   };
+
+  const showTeas = () => {
+    let url = "http://localhost:4000/tea";
+    // let url = "https://tea-api-vic-lo.herokuapp.com/tea"
+    fetch(url, {
+      method: "GET",
+      headers: new Headers({
+        "Content-Type": "application/json",
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data)
+        setTeaArray(data.teas);
+        // setTeaArray(data);
+      });
+  };
+
 
   const setToken = (newToken) => {
     console.log(newToken);
@@ -76,7 +95,7 @@ const App = () => {
             <MainTea />
           </Route>
           <Route exact path="/allteas">
-            <AllTeas getTeaId={getTeaId} />
+            <AllTeas getTeaId={getTeaId} showTeas={showTeas} teaArray={teaArray} />
           </Route>
           <Route exact path="/teaType">
             <TeaType getTeaId={getTeaId} />
@@ -108,9 +127,12 @@ const App = () => {
               )
             }
           />
-          <Route path="/inventory">
-            {admin ? <TeaInventory /> : <Redirect to="/allteas" />}
+          <Route path="/admin">
+            {admin ? <AdminMain teaArray={teaArray}/> : <Redirect to="/profile" />}
           </Route>
+          {/* <Route path="/teaInventory">
+            {admin ? <TeaInventory teaArray={teaArray}/> : <Redirect to="/allteas" />}
+          </Route> */}
         </Switch>
       </Router>
     </div>

@@ -23,7 +23,7 @@ const Signup = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://localhost:3000/user/signup', {
+    fetch('http://localhost:4000/user/register', {
       method: 'POST',
       body: JSON.stringify({user: {
         firstName: firstName,
