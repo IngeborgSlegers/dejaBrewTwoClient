@@ -5,6 +5,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TeaInventoryTableHead from './TeaInventoryTableHead';
+import TeaInventoryCreate from './TeaInventoryCreate';
 
 
 const TeaInventory = (props) => {
@@ -67,6 +68,7 @@ const TeaInventory = (props) => {
 
   return (
     <div>
+      <TeaInventoryCreate token={props.token} showTeas={props.showTeas} teaOptions={props.teaOptions}/>
       <Paper>
         <TableContainer>
           <Table>

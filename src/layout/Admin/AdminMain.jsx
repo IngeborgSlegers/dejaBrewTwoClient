@@ -69,7 +69,12 @@ const AdminMain = (props) => {
       </Card>
       <Switch>
         <Route path={`${path}/teaInventory`}>
-          <TeaInventory teaArray={props.teaArray} />
+          <TeaInventory
+            teaArray={props.teaArray}
+            showTeas={props.showTeas}
+            token={props.token}
+            teaOptions={props.teaOptions}
+          />
         </Route>
       </Switch>
     </div>

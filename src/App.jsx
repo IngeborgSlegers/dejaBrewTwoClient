@@ -20,6 +20,14 @@ const App = () => {
   const [sideBar, setSideBar] = useState(false);
   const [admin, setAdmin] = useState(false);
   const [teaArray, setTeaArray] = useState([]);
+  const [teaOptions, setTeaOptions] = useState([
+    "Black",
+    "White",
+    "Green",
+    "Oolong",
+    "Herbal",
+    "Pu-erh",
+  ]);
 
   // useEffect(() => {
   //   if (localStorage.getItem("token")) {
@@ -31,7 +39,6 @@ const App = () => {
   useEffect(() => {
     showTeas();
   }, [setTeaId]);
-
 
   const getTeaId = (newTeaId) => {
     setTeaId(newTeaId);
@@ -48,12 +55,11 @@ const App = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
+        console.log(data);
         setTeaArray(data.teas);
         // setTeaArray(data);
       });
   };
-
 
   const setToken = (newToken) => {
     console.log(newToken);
@@ -95,10 +101,14 @@ const App = () => {
             <MainTea />
           </Route>
           <Route exact path="/allteas">
-            <AllTeas getTeaId={getTeaId} showTeas={showTeas} teaArray={teaArray} />
+            <AllTeas
+              getTeaId={getTeaId}
+              showTeas={showTeas}
+              teaArray={teaArray}
+            />
           </Route>
           <Route exact path="/teaType">
-            <TeaType getTeaId={getTeaId} />
+            <TeaType getTeaId={getTeaId} teaOptions={teaOptions}/>
           </Route>
           <Route
             exact
@@ -128,7 +138,16 @@ const App = () => {
             }
           />
           <Route path="/admin">
-            {admin ? <AdminMain teaArray={teaArray}/> : <Redirect to="/profile" />}
+            {admin ? (
+              <AdminMain
+                teaArray={teaArray}
+                token={sessionToken}
+                showTeas={showTeas}
+                teaOptions={teaOptions}
+              />
+            ) : (
+              <Redirect to="/profile" />
+            )}
           </Route>
           {/* <Route path="/teaInventory">
             {admin ? <TeaInventory teaArray={teaArray}/> : <Redirect to="/allteas" />}
