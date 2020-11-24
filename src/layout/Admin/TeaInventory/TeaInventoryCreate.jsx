@@ -3,6 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import DialogContent from '@material-ui/core/DialogContent'
+import DialogActions from '@material-ui/core/DialogActions';
+import { green, red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -11,6 +16,12 @@ const useStyles = makeStyles((theme) => ({
       width: "25ch",
     },
   },
+  addButton: {
+    color: green[600],
+  },
+  cancelButton: {
+    color: red[600]
+  }
 }));
 
 const TeaInventoryCreate = (props) => {
@@ -41,7 +52,7 @@ const TeaInventoryCreate = (props) => {
             steepTime: steepTime,
             price: price,
           },
-        })
+        }),
       });
       let tea = await response.json();
       console.log(tea);
@@ -52,6 +63,7 @@ const TeaInventoryCreate = (props) => {
       setTemp(0);
       setSteepTime(0);
       setPrice(0);
+      props.toggleDialogue();
     } catch (error) {
       throw new Error(error);
     }
@@ -64,50 +76,73 @@ const TeaInventoryCreate = (props) => {
 
   return (
     <div>
-      <form className={classes.root} onSubmit={handleSubmit}>
-        <TextField
-          id="standard-basic"
-          label="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <TextField id="standard-basic" label="Type" select onChange={e => setType(e.target.value)} value={type}>
-          {props.teaOptions.map((teaType, index) => {
-            return (<MenuItem key={index} value={teaType}>
-              {teaType}
-            </MenuItem>
-            )
-          })}
-        </TextField>
-        <TextField
-          id="standard-basic"
-          label="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        />
-        <TextField
-          id="standard-basic"
-          label="Temperature"
-          type="number"
-          value={temp}
-          onChange={(e) => setTemp(e.target.value)}
-        />
-        <TextField
-          id="standard-basic"
-          label="Steep Time"
-          type="number"
-          value={steepTime}
-          onChange={(e) => setSteepTime(e.target.value)}
-        />
-        <TextField
-          id="standard-basic"
-          label="Price"
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-        />
-        <Button type="submit">Create Tea</Button>
-      </form>
+      <Dialog open={props.open} onClose={props.toggleDialogue}>
+        <DialogTitle>CREATE A NEW TEA</DialogTitle>
+        <DialogContent>
+          <form className={classes.root} onSubmit={handleSubmit}>
+            <TextField
+              id="standard-basic"
+              label="Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+            <TextField
+              id="standard-basic"
+              label="Type"
+              select
+              onChange={(e) => setType(e.target.value)}
+              value={type}
+            >
+              {props.teaOptions.map((teaType, index) => {
+                let teaTypeCap = teaType.split('').map((letter, index) => {
+                  return index === 0 ? letter.toUpperCase() : letter
+                })
+
+                return (
+                  <MenuItem key={index} value={teaType}>
+                    {teaTypeCap}
+                  </MenuItem>
+                );
+              })}
+            </TextField>
+            <TextField
+              id="standard-basic"
+              label="Description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+            <TextField
+              id="standard-basic"
+              label="Temperature"
+              type="number"
+              value={temp}
+              onChange={(e) => setTemp(e.target.value)}
+            />
+            <TextField
+              id="standard-basic"
+              label="Steep Time"
+              type="number"
+              value={steepTime}
+              onChange={(e) => setSteepTime(e.target.value)}
+            />
+            <TextField
+              id="standard-basic"
+              label="Price"
+              type="number"
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+            <DialogActions>
+              <Button type="submit" className={classes.addButton}>
+                Add
+              </Button>
+              <Button onClick={e => props.toggleDialogue()} className={classes.cancelButton}>
+                Cancel
+              </Button>
+            </DialogActions>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

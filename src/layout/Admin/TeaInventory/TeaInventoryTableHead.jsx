@@ -19,7 +19,7 @@ const TeaInventoryTableHead = (props) => {
             direction={orderBy === teaKey ? order : 'asc'}
             onClick={(e) => handleRequestSort(e, teaKey)}
             >
-              {teaKey}
+              {teaKey.toUpperCase()}
               {orderBy === teaKey ? (
                 <span>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}

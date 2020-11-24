@@ -8,9 +8,9 @@ const TeaInventoryRows = (props) => {
         <TableCell>{props.tea.name}</TableCell>
         <TableCell>{props.tea.type}</TableCell>
         <TableCell>{props.tea.description}</TableCell>
-        <TableCell>{props.tea.steepTime}</TableCell>
-        <TableCell>{props.tea.temp}</TableCell>
-        <TableCell>{props.tea.price}</TableCell>
+        <TableCell>{props.tea.temp} &#8457;</TableCell>
+        <TableCell>{props.tea.steepTime} min</TableCell>
+        <TableCell>{props.tea.price} $/LB</TableCell>
       </TableRow>
   )
 }

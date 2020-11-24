@@ -21,12 +21,12 @@ const App = () => {
   const [admin, setAdmin] = useState(false);
   const [teaArray, setTeaArray] = useState([]);
   const [teaOptions, setTeaOptions] = useState([
-    "Black",
-    "White",
-    "Green",
-    "Oolong",
-    "Herbal",
-    "Pu-erh",
+    "black",
+    "white",
+    "green",
+    "oolong",
+    "herbal",
+    "pu-erh",
   ]);
 
   // useEffect(() => {
