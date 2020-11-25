@@ -6,14 +6,14 @@ import "./TeaType.css";
 const AllTeas = (props) => {
   const [teaType, setTeaType] = useState("");
   const [teaByType, setTeaByType] = useState([]);
-  const [teaOptions, setTeaOptions] = useState([
-    "Black",
-    "White",
-    "Green",
-    "Oolong",
-    "Herbal",
-    "Pu-erh",
-  ]);
+  // const [teaOptions, setTeaOptions] = useState([
+  //   "Black",
+  //   "White",
+  //   "Green",
+  //   "Oolong",
+  //   "Herbal",
+  //   "Pu-erh",
+  // ]);
 
   useEffect(() => (teaType !== "" ? showTeas() : undefined), [teaType]);
 
@@ -38,7 +38,7 @@ const AllTeas = (props) => {
   };
 
   const teaButtons = () => {
-    return teaOptions.map((tea, index) => {
+    return props.teaOptions.map((tea, index) => {
       return (
         <Col key={index}>
           <Card>

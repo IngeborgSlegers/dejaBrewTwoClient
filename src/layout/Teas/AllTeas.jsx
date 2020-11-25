@@ -4,30 +4,30 @@ import { Link } from "react-router-dom";
 import "./AllTeas.css";
 
 const AllTeas = (props) => {
-  const [teaArray, setTeaArray] = useState([]);
+  // const [teaArray, setTeaArray] = useState([]);
 
   useEffect(() => {
-    showTeas();
+    props.showTeas();
   }, []);
 
-  const showTeas = () => {
-    let url = "http://localhost:4000/tea";
-    fetch(url, {
-      method: "GET",
-      headers: new Headers({
-        "Content-Type": "application/json",
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setTeaArray(data.teas);
-      });
-  };
+  // const showTeas = () => {
+  //   let url = "http://localhost:4000/tea";
+  //   fetch(url, {
+  //     method: "GET",
+  //     headers: new Headers({
+  //       "Content-Type": "application/json",
+  //     }),
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setTeaArray(data.teas);
+  //     });
+  // };
 
   return (
     <div className="alltea">
       <Row>
-        {teaArray.map((tea, index) => {
+        {props.teaArray !== 0 ? props.teaArray.map((tea, index) => {
           return (
             <Col key={index}>
               <Card>
@@ -48,7 +48,7 @@ const AllTeas = (props) => {
               </Card>
             </Col>
           );
-        })}
+        }) : null}
       </Row>
     </div>
   );

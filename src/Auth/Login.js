@@ -52,7 +52,7 @@ const Login = (props) => {
           setUserName(data.user.firstName);
           if (data.user.role === "admin") {
             props.setAdminRole();
-            props.history.push("/inventory");
+            props.history.push("/admin");
             // return <Redirect to="/inventory" />;
           } else if (data.user.role === "user") {
             updateOn(true);
