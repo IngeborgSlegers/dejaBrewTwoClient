@@ -8,7 +8,6 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions';
 import { green, red } from "@material-ui/core/colors";
-import AlertDialog from "../../../Auth/AlertDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,7 +63,7 @@ const TeaInventoryCreate = (props) => {
       setTemp(0);
       setSteepTime(0);
       setPrice(0);
-      props.toggleDialogue();
+      props.toggleCreateDialogue();
     } catch (error) {
       // return <AlertDialog errorMessage={error}/>
       throw new Error(error);
@@ -78,7 +77,7 @@ const TeaInventoryCreate = (props) => {
 
   return (
     <div>
-      <Dialog open={props.open} onClose={props.toggleDialogue}>
+      <Dialog open={props.open} onClose={props.toggleCreateDialogue}>
         <DialogTitle>CREATE A NEW TEA</DialogTitle>
         <DialogContent>
           <form className={classes.root} onSubmit={handleSubmit}>

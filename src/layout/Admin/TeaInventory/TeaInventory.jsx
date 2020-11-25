@@ -9,18 +9,29 @@ import TeaInventoryCreate from "./TeaInventoryCreate";
 import { Button } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import Snackbar from "@material-ui/core/Snackbar";
+import TeaInventoryEdit from "./TeaInventoryEdit";
 
 const TeaInventory = (props) => {
   const [teaKeys, setTeaKeys] = useState([]);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
-  const [open, setOpen] = useState(false);
+  const [openCreate, setOpenCreate] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
   const [teaId, setTeaId] = useState(0);
+  const [tea, setTea] = useState({})
 
-  const toggleDialogue = () => {
-    setOpen(!open);
+  const toggleCreateDialogue = () => {
+    setOpenCreate(!openCreate);
   };
+
+  const toggleEditDialogue = () => {
+    setOpenEdit(!openEdit);
+  };
+
+  const setTeaForEdit = (newTea) => {
+    setTea(newTea);
+  }
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -109,16 +120,27 @@ const TeaInventory = (props) => {
           <Alert severity="success">Tea #{teaId} successfully deleted!</Alert>
         </Snackbar>
       ) : null}
-      <Button onClick={toggleDialogue} variant="outlined">
+      
+      <Button onClick={toggleCreateDialogue} variant="outlined">
         Add Tea
       </Button>
-      {open ? (
+      {openCreate ? (
         <TeaInventoryCreate
           token={props.token}
           showTeas={props.showTeas}
           teaOptions={props.teaOptions}
-          open={open}
-          toggleDialogue={toggleDialogue}
+          open={openCreate}
+          toggleCreateDialogue={toggleCreateDialogue}
+        />
+      ) : null}
+      {openEdit ? (
+        <TeaInventoryEdit
+          token={props.token}
+          tea={tea}
+          showTeas={props.showTeas}
+          teaOptions={props.teaOptions}
+          open={openEdit}
+          toggleEditDialogue={toggleEditDialogue}
         />
       ) : null}
       <Paper>
@@ -142,6 +164,9 @@ const TeaInventory = (props) => {
                       stableSort={stableSort}
                       getComparator={getComparator}
                       deleteTea={deleteTea}
+                      teaOptions={props.teaOptions}
+                      setTeaForEdit={setTeaForEdit}
+                      toggleEditDialogue={toggleEditDialogue}
                     />
                   ))
                 : null}

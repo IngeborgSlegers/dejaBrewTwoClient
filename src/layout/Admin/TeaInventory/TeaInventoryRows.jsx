@@ -13,6 +13,7 @@ const TeaInventoryRows = (props) => {
         <TableCell>{props.tea.steepTime} min</TableCell>
         <TableCell>{props.tea.price} $/LB</TableCell>
         <TableCell><Button variant="outlined" onClick={e => props.deleteTea(props.tea.id)}>DELETE</Button></TableCell>
+        <TableCell><Button variant="outlined" onClick={e => {props.toggleEditDialogue(); props.setTeaForEdit(props.tea)}}>EDIT</Button></TableCell>
       </TableRow>
   )
 }
