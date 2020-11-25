@@ -1,6 +1,7 @@
 import React from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import { Button } from '@material-ui/core';
 
 const TeaInventoryRows = (props) => {
   return (
@@ -11,6 +12,7 @@ const TeaInventoryRows = (props) => {
         <TableCell>{props.tea.temp} &#8457;</TableCell>
         <TableCell>{props.tea.steepTime} min</TableCell>
         <TableCell>{props.tea.price} $/LB</TableCell>
+        <TableCell><Button variant="outlined" onClick={e => props.deleteTea(props.tea.id)}>DELETE</Button></TableCell>
       </TableRow>
   )
 }

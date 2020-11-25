@@ -7,16 +7,20 @@ import TableBody from "@material-ui/core/TableBody";
 import TeaInventoryTableHead from "./TeaInventoryTableHead";
 import TeaInventoryCreate from "./TeaInventoryCreate";
 import { Button } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
+import Snackbar from "@material-ui/core/Snackbar";
 
 const TeaInventory = (props) => {
   const [teaKeys, setTeaKeys] = useState([]);
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
   const [open, setOpen] = useState(false);
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [teaId, setTeaId] = useState(0);
 
   const toggleDialogue = () => {
     setOpen(!open);
-  }
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -54,9 +58,10 @@ const TeaInventory = (props) => {
 
   useEffect(() => {
     getTeaKeys();
-    // return () => {
-    //   cleanup
-    // }
+  }, []);
+
+  useEffect(() => {
+    props.showTeas();
   }, []);
 
   const getTeaKeys = () => {
@@ -67,16 +72,55 @@ const TeaInventory = (props) => {
     setTeaKeys(filteredKeys);
   };
 
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setSnackOpen(false);
+  };
+
+  const deleteTea = async (teaId) => {
+    let url = `http://localhost:4000/tea/${teaId}`;
+    let deleteTea = await fetch(url, {
+      method: "DELETE",
+      headers: new Headers({
+        "Content-Type": "application/json",
+        Authorization: props.token,
+      }),
+    });
+    let response = await deleteTea.json();
+    console.log(response);
+    setTeaId(teaId);
+    setSnackOpen(true);
+    props.showTeas();
+
+    // return (
+    // );
+  };
+
   return (
     <div>
-      <Button onClick={toggleDialogue}>Add Tea</Button>
-      {open ? <TeaInventoryCreate
-        token={props.token}
-        showTeas={props.showTeas}
-        teaOptions={props.teaOptions}
-        open={open}
-        toggleDialogue={toggleDialogue}
-      /> : null}
+      {snackOpen ? (
+        <Snackbar
+          open={snackOpen}
+          autoHideDuration={6000}
+          onClick={handleClose}
+        >
+          <Alert severity="success">Tea #{teaId} successfully deleted!</Alert>
+        </Snackbar>
+      ) : null}
+      <Button onClick={toggleDialogue} variant="outlined">
+        Add Tea
+      </Button>
+      {open ? (
+        <TeaInventoryCreate
+          token={props.token}
+          showTeas={props.showTeas}
+          teaOptions={props.teaOptions}
+          open={open}
+          toggleDialogue={toggleDialogue}
+        />
+      ) : null}
       <Paper>
         <TableContainer>
           <Table>
@@ -97,6 +141,7 @@ const TeaInventory = (props) => {
                       tea={tea}
                       stableSort={stableSort}
                       getComparator={getComparator}
+                      deleteTea={deleteTea}
                     />
                   ))
                 : null}

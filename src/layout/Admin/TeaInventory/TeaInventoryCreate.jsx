@@ -8,6 +8,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from '@material-ui/core/DialogContent'
 import DialogActions from '@material-ui/core/DialogActions';
 import { green, red } from "@material-ui/core/colors";
+import AlertDialog from "../../../Auth/AlertDialog";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,6 +66,7 @@ const TeaInventoryCreate = (props) => {
       setPrice(0);
       props.toggleDialogue();
     } catch (error) {
+      // return <AlertDialog errorMessage={error}/>
       throw new Error(error);
     }
   };
@@ -96,8 +98,7 @@ const TeaInventoryCreate = (props) => {
               {props.teaOptions.map((teaType, index) => {
                 let teaTypeCap = teaType.split('').map((letter, index) => {
                   return index === 0 ? letter.toUpperCase() : letter
-                })
-
+                }).join('');
                 return (
                   <MenuItem key={index} value={teaType}>
                     {teaTypeCap}
@@ -133,10 +134,10 @@ const TeaInventoryCreate = (props) => {
               onChange={(e) => setPrice(e.target.value)}
             />
             <DialogActions>
-              <Button type="submit" className={classes.addButton}>
+              <Button type="submit" className={classes.addButton} variant="outlined">
                 Add
               </Button>
-              <Button onClick={e => props.toggleDialogue()} className={classes.cancelButton}>
+              <Button onClick={e => props.toggleDialogue()} className={classes.cancelButton} variant="outlined">
                 Cancel
               </Button>
             </DialogActions>
