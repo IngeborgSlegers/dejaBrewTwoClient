@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import MenuItem from "@material-ui/core/MenuItem";
+import {
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  TextField,
+  Button,
+  MenuItem,
+} from "@material-ui/core";
 
 const TeaInventoryEdit = (props) => {
   const [name, setName] = useState(props.tea.name);
@@ -22,9 +24,11 @@ const TeaInventoryEdit = (props) => {
       method: "PUT",
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: props.token,
+        Authorization: `Bearer ${props.token}`,
       }),
-      body: JSON.stringify({tea: {name, type, description, temp, steepTime, price}}),
+      body: JSON.stringify({
+        tea: { name, type, description, temp, steepTime, price },
+      }),
     });
     let editedTea = await response.json();
     console.log(editedTea);

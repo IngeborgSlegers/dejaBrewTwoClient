@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import TeaInventoryRows from "./TeaInventoryRows";
-import Paper from "@material-ui/core/Paper";
-import TableContainer from "@material-ui/core/TableContainer";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
 import TeaInventoryTableHead from "./TeaInventoryTableHead";
 import TeaInventoryCreate from "./TeaInventoryCreate";
-import { Button } from "@material-ui/core";
-import Alert from "@material-ui/lab/Alert";
-import Snackbar from "@material-ui/core/Snackbar";
 import TeaInventoryEdit from "./TeaInventoryEdit";
+import {
+  Paper,
+  TableContainer,
+  Table,
+  TableBody,
+  Button,
+  Snackbar,
+} from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
 
 const TeaInventory = (props) => {
   const [teaKeys, setTeaKeys] = useState([]);
@@ -19,7 +21,7 @@ const TeaInventory = (props) => {
   const [openEdit, setOpenEdit] = useState(false);
   const [snackOpen, setSnackOpen] = useState(false);
   const [teaId, setTeaId] = useState(0);
-  const [tea, setTea] = useState({})
+  const [tea, setTea] = useState({});
 
   const toggleCreateDialogue = () => {
     setOpenCreate(!openCreate);
@@ -31,7 +33,7 @@ const TeaInventory = (props) => {
 
   const setTeaForEdit = (newTea) => {
     setTea(newTea);
-  }
+  };
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -96,7 +98,7 @@ const TeaInventory = (props) => {
       method: "DELETE",
       headers: new Headers({
         "Content-Type": "application/json",
-        Authorization: props.token,
+        Authorization: `Bearer ${props.token}`,
       }),
     });
     let response = await deleteTea.json();
@@ -104,9 +106,6 @@ const TeaInventory = (props) => {
     setTeaId(teaId);
     setSnackOpen(true);
     props.showTeas();
-
-    // return (
-    // );
   };
 
   return (
@@ -120,7 +119,7 @@ const TeaInventory = (props) => {
           <Alert severity="success">Tea #{teaId} successfully deleted!</Alert>
         </Snackbar>
       ) : null}
-      
+
       <Button onClick={toggleCreateDialogue} variant="outlined">
         Add Tea
       </Button>

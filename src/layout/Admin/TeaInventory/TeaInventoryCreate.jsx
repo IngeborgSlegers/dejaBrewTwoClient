@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import TextField from "@material-ui/core/TextField";
-import MenuItem from "@material-ui/core/MenuItem";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from '@material-ui/core/DialogContent'
-import DialogActions from '@material-ui/core/DialogActions';
+import {
+  TextField,
+  MenuItem,
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+} from "@material-ui/core";
 import { green, red } from "@material-ui/core/colors";
 
 const useStyles = makeStyles((theme) => ({
@@ -20,8 +22,8 @@ const useStyles = makeStyles((theme) => ({
     color: green[600],
   },
   cancelButton: {
-    color: red[600]
-  }
+    color: red[600],
+  },
 }));
 
 const TeaInventoryCreate = (props) => {
@@ -41,7 +43,7 @@ const TeaInventoryCreate = (props) => {
         method: "POST",
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization: props.token,
+          Authorization: `Bearer ${props.token}`,
         }),
         body: JSON.stringify({
           tea: {
@@ -95,9 +97,12 @@ const TeaInventoryCreate = (props) => {
               value={type}
             >
               {props.teaOptions.map((teaType, index) => {
-                let teaTypeCap = teaType.split('').map((letter, index) => {
-                  return index === 0 ? letter.toUpperCase() : letter
-                }).join('');
+                let teaTypeCap = teaType
+                  .split("")
+                  .map((letter, index) => {
+                    return index === 0 ? letter.toUpperCase() : letter;
+                  })
+                  .join("");
                 return (
                   <MenuItem key={index} value={teaType}>
                     {teaTypeCap}
@@ -133,10 +138,18 @@ const TeaInventoryCreate = (props) => {
               onChange={(e) => setPrice(e.target.value)}
             />
             <DialogActions>
-              <Button type="submit" className={classes.addButton} variant="outlined">
+              <Button
+                type="submit"
+                className={classes.addButton}
+                variant="outlined"
+              >
                 Add
               </Button>
-              <Button onClick={e => props.toggleDialogue()} className={classes.cancelButton} variant="outlined">
+              <Button
+                onClick={(e) => props.toggleDialogue()}
+                className={classes.cancelButton}
+                variant="outlined"
+              >
                 Cancel
               </Button>
             </DialogActions>

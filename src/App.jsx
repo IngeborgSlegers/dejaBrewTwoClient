@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { Router, Route, Switch, Redirect } from "react-router-dom";
+import { createBrowserHistory } from "history";
 import HeroImage from "./layout/Hero/HeroImage";
 import AllTeas from "./layout/Teas/AllTeas";
 import Nav from "./layout/Navbar/Nav";
 import Auth from "./Auth/Auth";
 import Profile from "./Auth/Profile";
-import { Router, Route, Switch, Redirect } from "react-router-dom";
-import { createBrowserHistory } from "history";
 import MainTea from "./layout/Teas/MainTea";
 import TeaType from "./layout/Teas/Types/TeaType/TeaType";
 import Tea from "./layout/Teas/Tea/Tea";
 import SideDrawer from "./layout/SideBar";
-import TeaInventory from "./layout/Admin/TeaInventory/TeaInventory";
 import AdminMain from "./layout/Admin/AdminMain";
 
 const history = createBrowserHistory();
@@ -86,13 +85,13 @@ const App = () => {
       <Router history={history}>
         <Nav logout={logout} setToken={setToken} sessionToken={sessionToken} />
         <HeroImage />
-        {/* <h1
+        <h1
           onClick={() => {
             toggleSidebar();
           }}
         >
           Click me to open the cart!
-        </h1> */}
+        </h1>
         {sideBar ? (
           <SideDrawer sideBar={sideBar} toggleSidebar={toggleSidebar} />
         ) : null}
