@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { Link, Switch, Route, useRouteMatch } from "react-router-dom";
 import TeaInventory from "./TeaInventory/TeaInventory";
+import UserMain from "./Users/UserMain";
 
 const useStyles = makeStyles({
   root: {
@@ -64,7 +65,7 @@ const AdminMain = (props) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <Link to="/users">
+          <Link to={`${url}/users`}>
             <Button size="small">View All Users</Button>
           </Link>
         </CardActions>
@@ -77,6 +78,9 @@ const AdminMain = (props) => {
             token={props.token}
             teaOptions={props.teaOptions}
           />
+        </Route>
+        <Route path={`${path}/users`}>
+          <UserMain token={props.token}/>
         </Route>
       </Switch>
     </div>
